@@ -17,6 +17,7 @@
 		9C23016E256D2E770098DE60 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C23016D256D2E770098DE60 /* FirstViewController.swift */; };
 		9C230170256D2E8F0098DE60 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C23016F256D2E8F0098DE60 /* SecondViewController.swift */; };
 		9C230172256D2EA70098DE60 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C230171256D2EA70098DE60 /* Service.swift */; };
+		9CE69BEB256D954C00CDB1AC /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE69BEA256D954C00CDB1AC /* Cell.swift */; };
 		C74D9D0982DC7D3C577136D8 /* Pods_ColorPickerClosures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D40B3FB47757E8E2447222EC /* Pods_ColorPickerClosures.framework */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		9C23016D256D2E770098DE60 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		9C23016F256D2E8F0098DE60 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		9C230171256D2EA70098DE60 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		9CE69BEA256D954C00CDB1AC /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		A70BDDBDC4262B327A49CECA /* Pods_ColorPickerClosuresTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColorPickerClosuresTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAA30339787DD991798A0349 /* Pods-ColorPickerClosuresTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorPickerClosuresTests.release.xcconfig"; path = "Target Support Files/Pods-ColorPickerClosuresTests/Pods-ColorPickerClosuresTests.release.xcconfig"; sourceTree = "<group>"; };
 		B6479B4E4B189FE5B14B7A9B /* Pods-ColorPickerClosures.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorPickerClosures.debug.xcconfig"; path = "Target Support Files/Pods-ColorPickerClosures/Pods-ColorPickerClosures.debug.xcconfig"; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 		9C230148256D2E3A0098DE60 /* ColorPickerClosures */ = {
 			isa = PBXGroup;
 			children = (
+				9CE69BE9256D953200CDB1AC /* Views */,
 				9C230176256D40DD0098DE60 /* Scenes */,
 				9C230175256D40D00098DE60 /* Service */,
 				9C230174256D40C10098DE60 /* Model */,
@@ -149,6 +152,14 @@
 			path = Scenes;
 			sourceTree = "<group>";
 		};
+		9CE69BE9256D953200CDB1AC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9CE69BEA256D954C00CDB1AC /* Cell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		BC876307C9813B7A515EBD7E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -166,7 +177,6 @@
 				CEA6D77361D8D3A5FA8BD431 /* Pods-ColorPickerClosuresTests.debug.xcconfig */,
 				AAA30339787DD991798A0349 /* Pods-ColorPickerClosuresTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -344,6 +354,7 @@
 			files = (
 				9C230170256D2E8F0098DE60 /* SecondViewController.swift in Sources */,
 				9C230172256D2EA70098DE60 /* Service.swift in Sources */,
+				9CE69BEB256D954C00CDB1AC /* Cell.swift in Sources */,
 				9C23016E256D2E770098DE60 /* FirstViewController.swift in Sources */,
 				9C23014A256D2E3A0098DE60 /* AppDelegate.swift in Sources */,
 				9C23014C256D2E3A0098DE60 /* SceneDelegate.swift in Sources */,

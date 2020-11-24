@@ -71,8 +71,8 @@ class FirstViewController: UIViewController {
         setupConstraints()
         client.request(model: ColorsModel.self) { result in
             switch result {
-                case .success(let colors):
-                print("json \(colors)")
+                case .success(let colors): break
+              //  print("json \(colors)")
                 
                 case .failure(let error):
                 print(error)
@@ -84,6 +84,8 @@ class FirstViewController: UIViewController {
 
 extension FirstViewController {
     @objc func handleButton(_ sender: UIButton) {
+        let controller = SecondViewController()
+        navigationController?.pushViewController(controller, animated: true)
     }
 }
 
