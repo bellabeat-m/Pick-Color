@@ -9,10 +9,19 @@
 import UIKit
 import SnapKit
 
+enum ColorTheme {
+    case background
+    case text
+}
+
 class FirstViewController: UIViewController {
     
-    private let client = Service()
+    // MARK: - Properties
+    private let apiService = Service()
+    private var backgrounColors = [UIColor]()
+    private var textColors = [UIColor]()
     
+    // MARK: - Outlets
     lazy var titleLabel: UILabel = {
         let lbl = UILabel(frame: .zero)
         lbl.textAlignment = .center
@@ -31,7 +40,7 @@ class FirstViewController: UIViewController {
       let btn = UIButton(type: .custom)
       btn.layer.cornerRadius = 12
       btn.backgroundColor = .white
-      btn.setTitle("change background", for: .normal)
+      btn.setTitle("Promijeni boju teksta", for: .normal)
       btn.setTitleColor(.black, for: .normal)
       btn.titleLabel?.font = .systemFont(ofSize: 21, weight: .semibold)
       btn.showsTouchWhenHighlighted = true
@@ -44,7 +53,7 @@ class FirstViewController: UIViewController {
       let btn = UIButton(type: .custom)
       btn.layer.cornerRadius = 12
       btn.backgroundColor = .white
-      btn.setTitle("set color", for: .normal)
+      btn.setTitle("Promijeni boju pozadine", for: .normal)
       btn.setTitleColor(.black, for: .normal)
       btn.titleLabel?.font = .systemFont(ofSize: 21, weight: .semibold)
       btn.showsTouchWhenHighlighted = true
@@ -55,7 +64,7 @@ class FirstViewController: UIViewController {
     
     lazy var buttonsStack: UIStackView = {
       let stackView = UIStackView(arrangedSubviews: [oneButton, secondButton])
-      stackView.alignment = .center
+      stackView.alignment = .fill
       stackView.spacing = 20
       stackView.axis = .vertical
       stackView.distribution = .fillEqually
@@ -64,28 +73,59 @@ class FirstViewController: UIViewController {
       
       return stackView
     }()
-
+    
+    // MARK: - UIViewController LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .systemGray4
         setupConstraints()
-        client.request(model: ColorsModel.self) { result in
+        apiService.request(model: ColorsModel.self) { [weak self] result in
             switch result {
-                case .success(let colors): break
-              //  print("json \(colors)")
+                case .success(let colors):
+                guard let colors = colors else { return }
+                self?.getResponseData(colors)
+                self?.randomiseUI()
                 
                 case .failure(let error):
                 print(error)
             }
         }
     }
+    
+    private func getResponseData(_ response: ColorsModel) {
+        DispatchQueue.main.async {
+            self.titleLabel.text = response.title
+            self.backgrounColors = response.colors.backgroundColors.map{ UIColor(hexString: $0)}
+            self.textColors = response.colors.textColors.map{ UIColor(hexString: $0)}
+        }
+    }
+
+    private func randomiseUI() {
+        DispatchQueue.main.async {
+            self.view.backgroundColor = self.backgrounColors.randomElement()
+            self.titleLabel.textColor = self.textColors.randomElement()
+        }
+    }
 
 }
 
 extension FirstViewController {
-    @objc func handleButton(_ sender: UIButton) {
+    @objc func handleButton(_ sender: Any) {
+        guard let colorMode = sender as? ColorTheme else {fatalError()}
         let controller = SecondViewController()
+        controller.colorMode = colorMode
         navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    private func pickableColors(for mode: ColorTheme) -> [UIColor] {
+        let colors: [UIColor]
+        switch mode {
+        case .background:
+            colors = backgrounColors.filter{ $0 != titleLabel.textColor}
+        case .text:
+            colors = textColors.filter{ $0 != view.backgroundColor}
+        }
+        return colors
     }
 }
 
@@ -102,12 +142,6 @@ extension FirstViewController {
             make.left.right.equalTo(view.safeAreaLayoutGuide).inset(10)
             make.top.equalTo(titleLabel.snp.bottom).offset(80)
             make.centerY.equalTo(view.safeAreaLayoutGuide.snp.centerY).offset(10)
-            }
-            
-            buttonsStack.snp.makeConstraints { make in
-                make.left.right.equalTo(view.safeAreaLayoutGuide).inset(10)
-                make.top.equalTo(titleLabel.snp.bottom).offset(80)
-                make.height.equalTo(100)
         }
     }
 }

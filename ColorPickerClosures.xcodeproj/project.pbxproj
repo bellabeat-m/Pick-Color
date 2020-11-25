@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0211D44DD35E1291D9E521FF /* Pods_ColorPickerClosuresTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A70BDDBDC4262B327A49CECA /* Pods_ColorPickerClosuresTests.framework */; };
+		9C1F935C256E821B009EDD7F /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1F935B256E821B009EDD7F /* Service.swift */; };
 		9C23014A256D2E3A0098DE60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C230149256D2E3A0098DE60 /* AppDelegate.swift */; };
 		9C23014C256D2E3A0098DE60 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C23014B256D2E3A0098DE60 /* SceneDelegate.swift */; };
 		9C230153256D2E3D0098DE60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C230152256D2E3D0098DE60 /* Assets.xcassets */; };
@@ -16,8 +17,8 @@
 		9C23016C256D2E5F0098DE60 /* ColorsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C23016B256D2E5F0098DE60 /* ColorsModel.swift */; };
 		9C23016E256D2E770098DE60 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C23016D256D2E770098DE60 /* FirstViewController.swift */; };
 		9C230170256D2E8F0098DE60 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C23016F256D2E8F0098DE60 /* SecondViewController.swift */; };
-		9C230172256D2EA70098DE60 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C230171256D2EA70098DE60 /* Service.swift */; };
 		9CE69BEB256D954C00CDB1AC /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE69BEA256D954C00CDB1AC /* Cell.swift */; };
+		9CE69BED256D9A0400CDB1AC /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE69BEC256D9A0400CDB1AC /* UIColor+Hex.swift */; };
 		C74D9D0982DC7D3C577136D8 /* Pods_ColorPickerClosures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D40B3FB47757E8E2447222EC /* Pods_ColorPickerClosures.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 
 /* Begin PBXFileReference section */
 		6352C1236EAED77C34873C5A /* Pods-ColorPickerClosures.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorPickerClosures.release.xcconfig"; path = "Target Support Files/Pods-ColorPickerClosures/Pods-ColorPickerClosures.release.xcconfig"; sourceTree = "<group>"; };
+		9C1F935B256E821B009EDD7F /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Service.swift; path = ColorPickerClosures/Service/Service.swift; sourceTree = SOURCE_ROOT; };
 		9C230146256D2E3A0098DE60 /* ColorPickerClosures.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColorPickerClosures.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C230149256D2E3A0098DE60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9C23014B256D2E3A0098DE60 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,8 +47,8 @@
 		9C23016B256D2E5F0098DE60 /* ColorsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsModel.swift; sourceTree = "<group>"; };
 		9C23016D256D2E770098DE60 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		9C23016F256D2E8F0098DE60 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
-		9C230171256D2EA70098DE60 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		9CE69BEA256D954C00CDB1AC /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
+		9CE69BEC256D9A0400CDB1AC /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 		A70BDDBDC4262B327A49CECA /* Pods_ColorPickerClosuresTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColorPickerClosuresTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAA30339787DD991798A0349 /* Pods-ColorPickerClosuresTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorPickerClosuresTests.release.xcconfig"; path = "Target Support Files/Pods-ColorPickerClosuresTests/Pods-ColorPickerClosuresTests.release.xcconfig"; sourceTree = "<group>"; };
 		B6479B4E4B189FE5B14B7A9B /* Pods-ColorPickerClosures.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorPickerClosures.debug.xcconfig"; path = "Target Support Files/Pods-ColorPickerClosures/Pods-ColorPickerClosures.debug.xcconfig"; sourceTree = "<group>"; };
@@ -99,7 +101,6 @@
 			children = (
 				9CE69BE9256D953200CDB1AC /* Views */,
 				9C230176256D40DD0098DE60 /* Scenes */,
-				9C230175256D40D00098DE60 /* Service */,
 				9C230174256D40C10098DE60 /* Model */,
 				9C230173256D40AB0098DE60 /* Extentions */,
 				9C230149256D2E3A0098DE60 /* AppDelegate.swift */,
@@ -122,6 +123,7 @@
 		9C230173256D40AB0098DE60 /* Extentions */ = {
 			isa = PBXGroup;
 			children = (
+				9CE69BEC256D9A0400CDB1AC /* UIColor+Hex.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -137,7 +139,7 @@
 		9C230175256D40D00098DE60 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				9C230171256D2EA70098DE60 /* Service.swift */,
+				9C1F935B256E821B009EDD7F /* Service.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -148,6 +150,7 @@
 				9C23014B256D2E3A0098DE60 /* SceneDelegate.swift */,
 				9C23016D256D2E770098DE60 /* FirstViewController.swift */,
 				9C23016F256D2E8F0098DE60 /* SecondViewController.swift */,
+				9C230175256D40D00098DE60 /* Service */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -353,9 +356,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				9C230170256D2E8F0098DE60 /* SecondViewController.swift in Sources */,
-				9C230172256D2EA70098DE60 /* Service.swift in Sources */,
+				9CE69BED256D9A0400CDB1AC /* UIColor+Hex.swift in Sources */,
 				9CE69BEB256D954C00CDB1AC /* Cell.swift in Sources */,
 				9C23016E256D2E770098DE60 /* FirstViewController.swift in Sources */,
+				9C1F935C256E821B009EDD7F /* Service.swift in Sources */,
 				9C23014A256D2E3A0098DE60 /* AppDelegate.swift in Sources */,
 				9C23014C256D2E3A0098DE60 /* SceneDelegate.swift in Sources */,
 				9C23016C256D2E5F0098DE60 /* ColorsModel.swift in Sources */,
