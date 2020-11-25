@@ -9,10 +9,6 @@
 import UIKit
 import SnapKit
 
-enum ColorTheme {
-    case background
-    case text
-}
 
 class FirstViewController: UIViewController {
     
@@ -39,12 +35,12 @@ class FirstViewController: UIViewController {
     lazy var oneButton: UIButton = {
       let btn = UIButton(type: .custom)
       btn.layer.cornerRadius = 12
-      btn.backgroundColor = .white
+      btn.backgroundColor = .systemGray4
       btn.setTitle("Promijeni boju teksta", for: .normal)
       btn.setTitleColor(.black, for: .normal)
       btn.titleLabel?.font = .systemFont(ofSize: 21, weight: .semibold)
       btn.showsTouchWhenHighlighted = true
-      btn.addTarget(self, action: #selector(handleButton(_:)), for: .touchUpInside)
+      btn.addTarget(self, action: #selector(handleButtonPressed(_:)), for: .touchUpInside)
       
       return btn
     }()
@@ -52,12 +48,12 @@ class FirstViewController: UIViewController {
     lazy var secondButton: UIButton = {
       let btn = UIButton(type: .custom)
       btn.layer.cornerRadius = 12
-      btn.backgroundColor = .white
+      btn.backgroundColor = .systemGray4
       btn.setTitle("Promijeni boju pozadine", for: .normal)
       btn.setTitleColor(.black, for: .normal)
       btn.titleLabel?.font = .systemFont(ofSize: 21, weight: .semibold)
       btn.showsTouchWhenHighlighted = true
-      btn.addTarget(self, action: #selector(handleButton(_:)), for: .touchUpInside)
+      btn.addTarget(self, action: #selector(handleButtonPressed(_:)), for: .touchUpInside)
       
       return btn
     }()
@@ -83,46 +79,51 @@ class FirstViewController: UIViewController {
             switch result {
                 case .success(let colors):
                 guard let colors = colors else { return }
-                self?.getResponseData(colors)
-                self?.randomiseUI()
                 
+                self?.configure(colors)
+                DispatchQueue.main.async {
+                self?.randomiseUI()
+                }
                 case .failure(let error):
                 print(error)
             }
         }
     }
     
-    private func getResponseData(_ response: ColorsModel) {
-        DispatchQueue.main.async {
-            self.titleLabel.text = response.title
-            self.backgrounColors = response.colors.backgroundColors.map{ UIColor(hexString: $0)}
-            self.textColors = response.colors.textColors.map{ UIColor(hexString: $0)}
-        }
+    private func configure(_ data: ColorsModel) {
+        self.backgrounColors = data.colors.backgroundColors.map{ UIColor(hexString: $0)}
+        self.textColors = data.colors.textColors.map{ UIColor(hexString: $0)}
     }
 
     private func randomiseUI() {
-        DispatchQueue.main.async {
-            self.view.backgroundColor = self.backgrounColors.randomElement()
-            self.titleLabel.textColor = self.textColors.randomElement()
-        }
+        self.view.backgroundColor = self.backgrounColors.randomElement()
+        self.titleLabel.textColor = self.textColors.randomElement()
+        self.oneButton.titleLabel?.textColor = self.textColors.randomElement()
+        self.secondButton.titleLabel?.textColor = self.textColors.randomElement()
     }
 
 }
 
 extension FirstViewController {
-    @objc func handleButton(_ sender: Any) {
-        guard let colorMode = sender as? ColorTheme else {fatalError()}
-        let controller = SecondViewController()
-        controller.colorMode = colorMode
-        navigationController?.pushViewController(controller, animated: true)
+    @objc func handleButtonPressed(_ sender: UIButton) {
+        let backgroundSelection = sender == secondButton
+        let textSelection = sender == oneButton
+        print("selected: \(textSelection)")
+//        let controller = SecondViewController()
+//        controller.mode = mode
+//        controller.presentFullmode
+//        navigationController?.present(controller, animated: true)
+//        controller.dismissBlock = {
+//            controller.dismiss(animated: true, completion: nil)
+//        }
     }
     
-    private func pickableColors(for mode: ColorTheme) -> [UIColor] {
+    private func pickedColors(for mode: ColorPickerType) -> [UIColor] {
         let colors: [UIColor]
         switch mode {
-        case .background:
-            colors = backgrounColors.filter{ $0 != titleLabel.textColor}
-        case .text:
+        case .backgroundColor:
+            colors = backgrounColors.filter{ $0 != titleLabel.textColor }
+        case .textColor:
             colors = textColors.filter{ $0 != view.backgroundColor}
         }
         return colors

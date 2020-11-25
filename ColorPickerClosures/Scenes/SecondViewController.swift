@@ -11,8 +11,10 @@ import UIKit
 class SecondViewController: UIViewController {
     
     var tableView = UITableView()
-    var colorMode: ColorTheme!
     var colors: [UIColor] = []
+    var mode: ColorPickerType?
+    var dismissBlock: (() -> ())?
+  //  private var selectionHandler: ((ColorsModel?, ColorPickerType?) -> ())?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +42,7 @@ extension SecondViewController: UITableViewDataSource, UITableViewDelegate {
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return colors.count
+        return colors.count 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -49,8 +51,11 @@ extension SecondViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let color = colors[indexPath.row]
-        navigationController?.popViewController(animated: true)
-        //delegate?.colorPickerViewController(self, didSelectColor: color)
+        let colorRow = self.colors[indexPath.row]
+        dismissBlock?()
     }
+}
+
+extension SecondViewController {
+
 }

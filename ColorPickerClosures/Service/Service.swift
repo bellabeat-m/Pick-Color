@@ -8,17 +8,33 @@
 
 import Foundation
 
-
-enum ServiceError: Error {
-    case responseError
-    case parseError(Error)
-}
-
 struct Service {
-
-     init() {}
     
-    func request<T: Decodable>( model: T.Type, completion: @escaping (Result<T, ServiceError>) -> ()) {
+     private (set) var config: ColorsModel? {
+         didSet {
+             if selectedTextColor == nil {
+                 self.selectedTextColor = self.config?.colors.textColors.randomElement()
+             }
+             if selectedBackgroundColor == nil {
+                 self.selectedBackgroundColor = self.config?.colors.backgroundColors.filter({ $0 != selectedTextColor }).randomElement()
+             }
+         }
+     }
+     
+     public var selectedBackgroundColor: String?
+     public var selectedTextColor: String?
+     
+     public var backgroundColors: [String] {
+         return self.config?.colors.backgroundColors.filter({ $0 != selectedTextColor }) ?? [String]()
+     }
+     
+     public var textColors: [String] {
+         return self.config?.colors.textColors.filter({ $0 != selectedBackgroundColor }) ?? [String]()
+     }
+
+     public init() {}
+    
+    func request<T: Decodable>( model: T.Type, completion: @escaping (Result<T?, ServiceError>) -> ()) {
         
         let url = URL(string: "https://d2t41j3b4bctaz.cloudfront.net/interview.json")
         

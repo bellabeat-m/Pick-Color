@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0211D44DD35E1291D9E521FF /* Pods_ColorPickerClosuresTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A70BDDBDC4262B327A49CECA /* Pods_ColorPickerClosuresTests.framework */; };
 		9C1F935C256E821B009EDD7F /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1F935B256E821B009EDD7F /* Service.swift */; };
+		9C1F935F256EAF31009EDD7F /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1F935E256EAF31009EDD7F /* Enums.swift */; };
 		9C23014A256D2E3A0098DE60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C230149256D2E3A0098DE60 /* AppDelegate.swift */; };
 		9C23014C256D2E3A0098DE60 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C23014B256D2E3A0098DE60 /* SceneDelegate.swift */; };
 		9C230153256D2E3D0098DE60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C230152256D2E3D0098DE60 /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 /* Begin PBXFileReference section */
 		6352C1236EAED77C34873C5A /* Pods-ColorPickerClosures.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorPickerClosures.release.xcconfig"; path = "Target Support Files/Pods-ColorPickerClosures/Pods-ColorPickerClosures.release.xcconfig"; sourceTree = "<group>"; };
 		9C1F935B256E821B009EDD7F /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Service.swift; path = ColorPickerClosures/Service/Service.swift; sourceTree = SOURCE_ROOT; };
+		9C1F935E256EAF31009EDD7F /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		9C230146256D2E3A0098DE60 /* ColorPickerClosures.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColorPickerClosures.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C230149256D2E3A0098DE60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9C23014B256D2E3A0098DE60 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +78,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9C1F935D256EAEE9009EDD7F /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				9C1F935E256EAF31009EDD7F /* Enums.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		9C23013D256D2E390098DE60 = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +109,7 @@
 		9C230148256D2E3A0098DE60 /* ColorPickerClosures */ = {
 			isa = PBXGroup;
 			children = (
+				9C1F935D256EAEE9009EDD7F /* Enums */,
 				9CE69BE9256D953200CDB1AC /* Views */,
 				9C230176256D40DD0098DE60 /* Scenes */,
 				9C230174256D40C10098DE60 /* Model */,
@@ -362,6 +373,7 @@
 				9C1F935C256E821B009EDD7F /* Service.swift in Sources */,
 				9C23014A256D2E3A0098DE60 /* AppDelegate.swift in Sources */,
 				9C23014C256D2E3A0098DE60 /* SceneDelegate.swift in Sources */,
+				9C1F935F256EAF31009EDD7F /* Enums.swift in Sources */,
 				9C23016C256D2E5F0098DE60 /* ColorsModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
