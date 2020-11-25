@@ -24,7 +24,7 @@ class FirstViewController: UIViewController {
         lbl.numberOfLines = 0
         lbl.lineBreakMode = .byWordWrapping
         lbl.font = UIFont.systemFont(ofSize: 22, weight: .medium)
-        lbl.textColor = .black
+        lbl.textColor = .systemGray4
         lbl.text = "Title default"
         
         view.addSubview(lbl)
@@ -101,21 +101,32 @@ class FirstViewController: UIViewController {
         self.oneButton.titleLabel?.textColor = self.textColors.randomElement()
         self.secondButton.titleLabel?.textColor = self.textColors.randomElement()
     }
-
 }
 
 extension FirstViewController {
     @objc func handleButtonPressed(_ sender: UIButton) {
         let backgroundSelection = sender == secondButton
         let textSelection = sender == oneButton
-        print("selected: \(textSelection)")
-//        let controller = SecondViewController()
-//        controller.mode = mode
-//        controller.presentFullmode
-//        navigationController?.present(controller, animated: true)
-//        controller.dismissBlock = {
-//            controller.dismiss(animated: true, completion: nil)
-//        }
+        let controller = SecondViewController()
+        if textSelection {
+            controller.colors = pickedColors(for: .textColor)
+            
+        } else if backgroundSelection {
+            controller.colors = pickedColors(for: .backgroundColor)
+            
+        }
+        navigationController?.present(controller, animated: true)
+        //move from here, missing mode in secondVC
+        controller.handleColor(handler: { (color) in
+            switch controller.mode {
+            case .backgroundColor:
+                self.view.backgroundColor = color
+            case .textColor:
+                self.titleLabel.textColor = color
+            case .none:
+                return
+            }
+        })
     }
     
     private func pickedColors(for mode: ColorPickerType) -> [UIColor] {

@@ -10,12 +10,15 @@ import UIKit
 
 class SecondViewController: UIViewController {
     
-    var tableView = UITableView()
+    // MARK: - Properties
     var colors: [UIColor] = []
     var mode: ColorPickerType?
-    var dismissBlock: (() -> ())?
-  //  private var selectionHandler: ((ColorsModel?, ColorPickerType?) -> ())?
+    var selectionColorHandler: ((_ color: UIColor) -> Void)?
 
+    // MARK: - Outlets
+    var tableView = UITableView()
+
+    // MARK: - UIViewController LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(tableView)
@@ -24,6 +27,12 @@ class SecondViewController: UIViewController {
         tableView.delegate = self
         tableView.register(Cell.self, forCellReuseIdentifier: Cell.identifier)
         setConstraints()
+    }
+    
+    func dismiss() {
+        DispatchQueue.main.async {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 }
 
@@ -38,24 +47,28 @@ extension SecondViewController {
 
 extension SecondViewController: UITableViewDataSource, UITableViewDelegate {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return colors.count 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? Cell else { return UITableViewCell() }
+        cell.backgroundColor = colors[indexPath.row]
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let colorRow = self.colors[indexPath.row]
-        dismissBlock?()
+        if let handler = selectionColorHandler {
+              handler(colorRow)
+              self.dismiss()
+          }
     }
 }
 
 extension SecondViewController {
-
+    
+    func handleColor(handler: @escaping (_ color: UIColor) -> ()) {
+        selectionColorHandler = handler
+    }
 }
