@@ -15,13 +15,13 @@ struct Service {
 
      public init() {}
     
-     func pickedColors(for mode: ColorPickerType, color: UIColor) -> [UIColor] {
+     func pickedColors(for mode: ColorPickerType, excludeColor: UIColor) -> [UIColor] {
         let colors: [UIColor]
         switch mode {
         case .backgroundColor:
-            colors = backgroundColors.filter{ !$0.isEqual(color) }
+            colors = backgroundColors.filter{ !$0.isEqual(excludeColor) }
         case .textColor:
-            colors = textColors.filter{ !$0.isEqual(color) }
+            colors = textColors.filter{ !$0.isEqual(excludeColor) }
         }
         return colors
     }

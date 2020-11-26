@@ -118,11 +118,11 @@ extension FirstViewController {
             }
         }
         if textPressed {
-            controller.colors = apiService.pickedColors(for: .textColor, color: self.titleLabel.textColor)
+            controller.colors = apiService.pickedColors(for: .textColor, excludeColor: self.view.backgroundColor ?? UIColor())
             controller.mode = .textColor
             
         } else if backgroundPressed {
-            controller.colors = apiService.pickedColors(for: .backgroundColor, color: self.view.backgroundColor ?? UIColor())
+            controller.colors = apiService.pickedColors(for: .backgroundColor, excludeColor: self.titleLabel.textColor)
             controller.mode = .backgroundColor
             
         }
