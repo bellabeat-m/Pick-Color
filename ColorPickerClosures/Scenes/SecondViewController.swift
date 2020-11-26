@@ -68,7 +68,7 @@ extension SecondViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension SecondViewController {
     
-    func handleColor(handler: @escaping (_ color: UIColor) -> ()) {
-        selectionColorHandler = handler
+    func handleColor(completion: @escaping (_ color: UIColor) -> ()) {
+        selectionColorHandler = completion
     }
 }
