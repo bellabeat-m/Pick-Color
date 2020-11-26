@@ -112,8 +112,8 @@ extension FirstViewController {
                     self.view.backgroundColor = color
                 case .textColor:
                     self.titleLabel.textColor = color
-                    self.oneButton.titleLabel?.textColor = color
-                    self.secondButton.titleLabel?.textColor = color
+                    self.oneButton.setTitleColor(color, for: .normal)
+                    self.secondButton.setTitleColor(color, for: .normal)
                 case .none: break    
             }
         }
