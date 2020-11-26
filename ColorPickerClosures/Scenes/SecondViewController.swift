@@ -12,7 +12,7 @@ class SecondViewController: UIViewController {
     
     // MARK: - Properties
     var colors: [UIColor] = []
-    var mode: ColorPickerType?
+    var mode: ColorPickerType?    
     var selectionColorHandler: ((_ color: UIColor) -> Void)?
 
     // MARK: - Outlets
@@ -59,9 +59,9 @@ extension SecondViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let colorRow = self.colors[indexPath.row]
+        self.dismiss()
         if let handler = selectionColorHandler {
               handler(colorRow)
-              self.dismiss()
           }
     }
 }

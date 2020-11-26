@@ -6,33 +6,31 @@
 //  Copyright © 2020 Marina Huber. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct Service {
     
-     private (set) var config: ColorsModel? {
-         didSet {
-             if selectedTextColor == nil {
-                 self.selectedTextColor = self.config?.colors.textColors.randomElement()
-             }
-             if selectedBackgroundColor == nil {
-                 self.selectedBackgroundColor = self.config?.colors.backgroundColors.filter({ $0 != selectedTextColor }).randomElement()
-             }
-         }
-     }
-     
-     public var selectedBackgroundColor: String?
-     public var selectedTextColor: String?
-     
-     public var backgroundColors: [String] {
-         return self.config?.colors.backgroundColors.filter({ $0 != selectedTextColor }) ?? [String]()
-     }
-     
-     public var textColors: [String] {
-         return self.config?.colors.textColors.filter({ $0 != selectedBackgroundColor }) ?? [String]()
-     }
+     public var backgroundColors: [UIColor] = []
+     public var textColors: [UIColor] = []
 
      public init() {}
+    
+     func pickedColors(for mode: ColorPickerType, color: UIColor) -> [UIColor] {
+        let colors: [UIColor]
+        switch mode {
+        case .backgroundColor:
+            colors = backgroundColors.filter{ !$0.isEqual(color) }
+        case .textColor:
+            colors = textColors.filter{ !$0.isEqual(color) }
+        }
+        return colors
+    }
+    
+    mutating func configure(_ data: ColorsModel) {
+        backgroundColors = data.colors.backgroundColors.map{ UIColor(hexString: $0)}
+        textColors = data.colors.textColors.map{ UIColor(hexString: $0)}
+    }
+
     
     func request<T: Decodable>( model: T.Type, completion: @escaping (Result<T?, ServiceError>) -> ()) {
         
@@ -67,4 +65,5 @@ struct Service {
         }
         task.resume()
     }
+    
 }

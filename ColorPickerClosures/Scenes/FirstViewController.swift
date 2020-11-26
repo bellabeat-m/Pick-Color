@@ -13,9 +13,7 @@ import SnapKit
 class FirstViewController: UIViewController {
     
     // MARK: - Properties
-    private let apiService = Service()
-    private var backgrounColors = [UIColor]()
-    private var textColors = [UIColor]()
+    private var apiService = Service()
     
     // MARK: - Outlets
     lazy var titleLabel: UILabel = {
@@ -53,7 +51,7 @@ class FirstViewController: UIViewController {
       btn.setTitleColor(.black, for: .normal)
       btn.titleLabel?.font = .systemFont(ofSize: 21, weight: .semibold)
       btn.showsTouchWhenHighlighted = true
-      btn.addTarget(self, action: #selector(handleButtonPressed(_:)), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(handleButtonPressed(_:)), for: .touchUpInside)
       
       return btn
     }()
@@ -74,71 +72,65 @@ class FirstViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .systemGray4
+        getData()
         setupConstraints()
+    }
+    
+    private func getData() {
         apiService.request(model: ColorsModel.self) { [weak self] result in
             switch result {
                 case .success(let colors):
-                guard let colors = colors else { return }
-                
-                self?.configure(colors)
-                DispatchQueue.main.async {
-                self?.randomiseUI()
+                    guard let colors = colors else { return }
+                    
+                    self?.apiService.configure(colors)
+                    DispatchQueue.main.async {
+                        self?.randomiseUI()
                 }
                 case .failure(let error):
-                print(error)
+                    print(error)
             }
         }
     }
-    
-    private func configure(_ data: ColorsModel) {
-        self.backgrounColors = data.colors.backgroundColors.map{ UIColor(hexString: $0)}
-        self.textColors = data.colors.textColors.map{ UIColor(hexString: $0)}
-    }
 
     private func randomiseUI() {
-        self.view.backgroundColor = self.backgrounColors.randomElement()
-        self.titleLabel.textColor = self.textColors.randomElement()
-        self.oneButton.titleLabel?.textColor = self.textColors.randomElement()
-        self.secondButton.titleLabel?.textColor = self.textColors.randomElement()
+        self.view.backgroundColor = apiService.backgroundColors.randomElement()
+        self.titleLabel.textColor = apiService.textColors.randomElement()
+        self.oneButton.titleLabel?.textColor = apiService.textColors.randomElement()
+        self.secondButton.titleLabel?.textColor = apiService.textColors.randomElement()
     }
 }
 
 extension FirstViewController {
-    @objc func handleButtonPressed(_ sender: UIButton) {
-        let backgroundSelection = sender == secondButton
-        let textSelection = sender == oneButton
-        let controller = SecondViewController()
-        if textSelection {
-            controller.colors = pickedColors(for: .textColor)
-            
-        } else if backgroundSelection {
-            controller.colors = pickedColors(for: .backgroundColor)
-            
-        }
-        navigationController?.present(controller, animated: true)
-        //move from here, missing mode in secondVC
-        controller.handleColor(handler: { (color) in
-            switch controller.mode {
-            case .backgroundColor:
-                self.view.backgroundColor = color
-            case .textColor:
-                self.titleLabel.textColor = color
-            case .none:
-                return
-            }
-        })
-    }
     
-    private func pickedColors(for mode: ColorPickerType) -> [UIColor] {
-        let colors: [UIColor]
-        switch mode {
-        case .backgroundColor:
-            colors = backgrounColors.filter{ $0 != titleLabel.textColor }
-        case .textColor:
-            colors = textColors.filter{ $0 != view.backgroundColor}
+    @objc func handleButtonPressed(_ sender: UIButton) {
+        let backgroundPressed = sender == secondButton
+        let textPressed = sender == oneButton
+        let controller = SecondViewController()
+        controller.handleColor { (color) in
+            switch controller.mode {
+                case .backgroundColor:
+                    self.view.backgroundColor = color
+                case .textColor:
+                    self.titleLabel.textColor = color
+                    self.oneButton.titleLabel?.textColor = color
+                    self.secondButton.titleLabel?.textColor = color
+                case .none: break    
+            }
         }
-        return colors
+        if textPressed {
+            controller.colors = apiService.pickedColors(for: .textColor, color: self.titleLabel.textColor)
+            controller.mode = .textColor
+            
+        } else if backgroundPressed {
+            controller.colors = apiService.pickedColors(for: .backgroundColor, color: self.view.backgroundColor ?? UIColor())
+            controller.mode = .backgroundColor
+            
+        }
+        controller.modalPresentationStyle = .fullScreen
+        navigationController?.present(controller, animated: true)
+        
     }
+
 }
 
 extension FirstViewController {
