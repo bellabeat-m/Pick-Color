@@ -11,13 +11,13 @@ import UIKit
 struct Service {
     
      public var backgroundColors: [UIColor] = []
-     public var textColors: [UIColor] = []
+     public var textColors: [UIColor]       = []
 
      public init() {}
     
     mutating func configure(_ data: ColorsModel) {
         backgroundColors = data.colors.backgroundColors.map{ UIColor(hexString: $0)}
-        textColors = data.colors.textColors.map{ UIColor(hexString: $0)}
+        textColors       = data.colors.textColors.map{ UIColor(hexString: $0)}
     }
     
      func pickedColors(for mode: ColorPickerType, excludeColor: UIColor) -> [UIColor] {

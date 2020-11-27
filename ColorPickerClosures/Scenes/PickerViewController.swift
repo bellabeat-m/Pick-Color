@@ -7,13 +7,13 @@
 //
 
 import UIKit
+import SnapKit
 
-class SecondViewController: UIViewController {
+class PickerViewController: UIViewController {
     
     // MARK: - Properties
-    var colors: [UIColor] = []
-    var mode: ColorPickerType?    
-    var selectionColorHandler: ((_ color: UIColor) -> Void)?
+    private let colors: [UIColor]
+    private var selectionColorHandler: ((_ color: UIColor) -> Void)?
 
     // MARK: - Outlets
     var tableView = UITableView()
@@ -31,52 +31,38 @@ class SecondViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(tableView)
-        tableView.rowHeight = UITableView.automaticDimension
+        tableView.rowHeight  = UITableView.automaticDimension
         tableView.dataSource = self
-        tableView.delegate = self
+        tableView.delegate   = self
         tableView.register(Cell.self, forCellReuseIdentifier: Cell.identifier)
         setConstraints()
     }
     
-    func dismiss() {
-        DispatchQueue.main.async {
-            self.dismiss(animated: true, completion: nil)
-        }
+    func registerColorHandler(completion: @escaping (_ color: UIColor) -> ()) {
+        selectionColorHandler = completion
     }
 }
     // MARK: - UITableViewDataSource & UITableViewDelegate
-extension SecondViewController: UITableViewDataSource, UITableViewDelegate {
+extension PickerViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return colors.count 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? Cell else { return UITableViewCell() }
+        guard let cell       = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? Cell else { return UITableViewCell() }
         cell.backgroundColor = colors[indexPath.row]
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let colorRow = self.colors[indexPath.row]
-        self.dismiss()
-        if let handler = selectionColorHandler {
-              handler(colorRow)
-          }
-    }
-}
-    // MARK: - Helper navigation
-
-extension SecondViewController {
-    
-    func configure(with colors: [UIColor], mode: ColorPickerType, completion: @escaping (_ color: UIColor) -> ()) {
-        self.colors = colors
-        self.mode = mode
-        selectionColorHandler = completion
+        self.dismiss(animated: true, completion: nil)
+        selectionColorHandler?(colorRow)
     }
 }
 
-extension SecondViewController {
+extension PickerViewController {
     
     func setConstraints()  {
         tableView.snp.makeConstraints { (make) in
