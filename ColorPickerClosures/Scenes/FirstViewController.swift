@@ -14,6 +14,8 @@ class FirstViewController: UIViewController {
     
     // MARK: - Properties
     private var apiService = Service()
+    private var backgroundController: SecondViewController?
+    private var textController: SecondViewController?
     
     // MARK: - Outlets
     lazy var titleLabel: UILabel = {
@@ -81,7 +83,6 @@ class FirstViewController: UIViewController {
             switch result {
                 case .success(let colors):
                     guard let colors = colors else { return }
-                    
                     self?.apiService.configure(colors)
                     DispatchQueue.main.async {
                         self?.randomiseUI()
@@ -100,35 +101,42 @@ class FirstViewController: UIViewController {
     }
 }
 
+// MARK: - UIViewController Dependency Injection
+
 extension FirstViewController {
     
     @objc func handleButtonPressed(_ sender: UIButton) {
         let backgroundPressed = sender == secondButton
         let textPressed = sender == oneButton
-        let controller = SecondViewController()
-        controller.handleColor { (color) in
-            switch controller.mode {
-                case .backgroundColor:
-                    self.view.backgroundColor = color
-                case .textColor:
-                    self.titleLabel.textColor = color
-                    self.oneButton.setTitleColor(color, for: .normal)
-                    self.secondButton.setTitleColor(color, for: .normal)
-                case .none: break    
-            }
-        }
+        backgroundController = SecondViewController(colors: apiService.backgroundColors)
+        textController = SecondViewController(colors: apiService.textColors)
         if textPressed {
-            controller.configure(with: apiService.pickedColors(for: .textColor, excludeColor: self.view.backgroundColor ?? UIColor()), mode: .textColor)
+            textController?.configure(with: apiService.pickedColors(for: .textColor, excludeColor: self.view.backgroundColor ?? UIColor()), mode: .textColor, completion: { (color) in
+                switch self.textController?.mode {
+                    case .backgroundColor: break
+                    case .textColor:
+                        self.titleLabel.textColor = color
+                        self.oneButton.setTitleColor(color, for: .normal)
+                        self.secondButton.setTitleColor(color, for: .normal)
+                    case .none: break
+                }
+            })
+            textController?.modalPresentationStyle = .fullScreen
+            navigationController?.present(textController ?? UIViewController(), animated: true)
             
         } else if backgroundPressed {
-            controller.configure(with: apiService.pickedColors(for: .textColor, excludeColor: self.titleLabel.textColor), mode: .backgroundColor)
-            
+            backgroundController?.configure(with: apiService.pickedColors(for: .backgroundColor, excludeColor: self.titleLabel.textColor), mode: .backgroundColor, completion: { (color) in
+                switch self.backgroundController?.mode {
+                    case .backgroundColor:
+                        self.view.backgroundColor = color
+                    case .textColor: break
+                    case .none: break
+                }
+            })
+            backgroundController?.modalPresentationStyle = .fullScreen
+            navigationController?.present(backgroundController ?? UIViewController(), animated: true)
         }
-        controller.modalPresentationStyle = .fullScreen
-        navigationController?.present(controller, animated: true)
-        
     }
-
 }
 
 extension FirstViewController {

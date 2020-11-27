@@ -17,6 +17,15 @@ class SecondViewController: UIViewController {
 
     // MARK: - Outlets
     var tableView = UITableView()
+    
+    init(colors: [UIColor]) {
+        self.colors = colors
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) is not supported")
+    }
 
     // MARK: - UIViewController LifeCycle
     override func viewDidLoad() {
@@ -34,23 +43,8 @@ class SecondViewController: UIViewController {
             self.dismiss(animated: true, completion: nil)
         }
     }
-    
-    // MARK: - Helper navigation
-    func configure(with colors: [UIColor], mode: ColorPickerType) {
-        self.colors = colors
-        self.mode = mode
-    }
 }
-
-extension SecondViewController {
-    
-    func setConstraints()  {
-        tableView.snp.makeConstraints { (make) in
-            make.edges.equalToSuperview()
-        }
-    }
-}
-
+    // MARK: - UITableViewDataSource & UITableViewDelegate
 extension SecondViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -71,10 +65,22 @@ extension SecondViewController: UITableViewDataSource, UITableViewDelegate {
           }
     }
 }
+    // MARK: - Helper navigation
 
 extension SecondViewController {
     
-    func handleColor(completion: @escaping (_ color: UIColor) -> ()) {
+    func configure(with colors: [UIColor], mode: ColorPickerType, completion: @escaping (_ color: UIColor) -> ()) {
+        self.colors = colors
+        self.mode = mode
         selectionColorHandler = completion
+    }
+}
+
+extension SecondViewController {
+    
+    func setConstraints()  {
+        tableView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
+        }
     }
 }
