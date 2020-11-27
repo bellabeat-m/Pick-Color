@@ -34,6 +34,12 @@ class SecondViewController: UIViewController {
             self.dismiss(animated: true, completion: nil)
         }
     }
+    
+    // MARK: - Helper navigation
+    func configure(with colors: [UIColor], mode: ColorPickerType) {
+        self.colors = colors
+        self.mode = mode
+    }
 }
 
 extension SecondViewController {

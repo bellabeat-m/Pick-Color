@@ -118,12 +118,10 @@ extension FirstViewController {
             }
         }
         if textPressed {
-            controller.colors = apiService.pickedColors(for: .textColor, excludeColor: self.view.backgroundColor ?? UIColor())
-            controller.mode = .textColor
+            controller.configure(with: apiService.pickedColors(for: .textColor, excludeColor: self.view.backgroundColor ?? UIColor()), mode: .textColor)
             
         } else if backgroundPressed {
-            controller.colors = apiService.pickedColors(for: .backgroundColor, excludeColor: self.titleLabel.textColor)
-            controller.mode = .backgroundColor
+            controller.configure(with: apiService.pickedColors(for: .textColor, excludeColor: self.titleLabel.textColor), mode: .backgroundColor)
             
         }
         controller.modalPresentationStyle = .fullScreen

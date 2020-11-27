@@ -15,6 +15,11 @@ struct Service {
 
      public init() {}
     
+    mutating func configure(_ data: ColorsModel) {
+        backgroundColors = data.colors.backgroundColors.map{ UIColor(hexString: $0)}
+        textColors = data.colors.textColors.map{ UIColor(hexString: $0)}
+    }
+    
      func pickedColors(for mode: ColorPickerType, excludeColor: UIColor) -> [UIColor] {
         let colors: [UIColor]
         switch mode {
@@ -24,11 +29,6 @@ struct Service {
             colors = textColors.filter{ !$0.isEqual(excludeColor) }
         }
         return colors
-    }
-    
-    mutating func configure(_ data: ColorsModel) {
-        backgroundColors = data.colors.backgroundColors.map{ UIColor(hexString: $0)}
-        textColors = data.colors.textColors.map{ UIColor(hexString: $0)}
     }
 
     
