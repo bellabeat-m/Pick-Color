@@ -15,7 +15,6 @@ struct ColorsModel: Decodable {
     }
     let title: String
     let colors: Colors
-    let colorMode = String()
 }
 
 extension ColorsModel {
