@@ -103,7 +103,7 @@ class SettingsViewController: UIViewController {
 extension SettingsViewController {
     
     @objc func changeBackgroundColor() {
-        let backgroundController                    = PickerViewController(colors: apiService.pickedColors(for: .backgroundColor, excludeColor: self.titleLabel.textColor))
+        let backgroundController                    = PickerViewController(colors: apiService.mapColors(for: .backgroundColor, excludeColor: self.titleLabel.textColor))
         backgroundController.registerColorHandler { (color) in
                self.view.backgroundColor            = color
         }
@@ -114,7 +114,7 @@ extension SettingsViewController {
     }
     
     @objc func changeTitleColor() {
-        let textController                      = PickerViewController(colors: apiService.pickedColors(for: .textColor, excludeColor: self.view.backgroundColor ?? UIColor()))
+        let textController                      = PickerViewController(colors: apiService.mapColors(for: .textColor, excludeColor: self.view.backgroundColor ?? UIColor()))
         textController.registerColorHandler { (color) in
             self.titleLabel.textColor           = color
             self.oneButton.setTitleColor(color, for: .normal)

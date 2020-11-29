@@ -10,11 +10,17 @@ import Foundation
 
 // MARK: - ColorsModel
 struct ColorsModel: Decodable {
+    struct Colors: Decodable {
+        let backgroundColors, textColors: [String]
+    }
     let title: String
     let colors: Colors
+    let colorMode = String()
 }
 
-// MARK: - Colors
-struct Colors: Decodable {
-    let backgroundColors, textColors: [String]
+extension ColorsModel {
+    enum CodingKeys: CodingKey {
+        case title
+        case colors
+    }
 }

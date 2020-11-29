@@ -20,7 +20,7 @@ struct Service {
         textColors       = data.colors.textColors.map{ UIColor(hexString: $0)}
     }
     
-     func pickedColors(for mode: ColorPickerType, excludeColor: UIColor) -> [UIColor] {
+     func mapColors(for mode: ColorPickerType, excludeColor: UIColor) -> [UIColor] {
         let colors: [UIColor]
         switch mode {
         case .backgroundColor:
