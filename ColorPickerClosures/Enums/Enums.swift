@@ -13,6 +13,7 @@ enum ServiceError: Error {
     case parseError(Error)
 }
 
+// MARK: - Types
 enum ColorPickerType {
     case textColor
     case backgroundColor

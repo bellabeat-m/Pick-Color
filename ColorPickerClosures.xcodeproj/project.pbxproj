@@ -18,6 +18,7 @@
 		9C23016C256D2E5F0098DE60 /* ColorsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C23016B256D2E5F0098DE60 /* ColorsModel.swift */; };
 		9C23016E256D2E770098DE60 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C23016D256D2E770098DE60 /* SettingsViewController.swift */; };
 		9C230170256D2E8F0098DE60 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C23016F256D2E8F0098DE60 /* PickerViewController.swift */; };
+		9C5509FA257513D40041B1AB /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C5509F9257513D40041B1AB /* SettingsViewModel.swift */; };
 		9CE69BEB256D954C00CDB1AC /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE69BEA256D954C00CDB1AC /* Cell.swift */; };
 		9CE69BED256D9A0400CDB1AC /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE69BEC256D9A0400CDB1AC /* UIColor+Hex.swift */; };
 		C74D9D0982DC7D3C577136D8 /* Pods_ColorPickerClosures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D40B3FB47757E8E2447222EC /* Pods_ColorPickerClosures.framework */; };
@@ -49,6 +50,7 @@
 		9C23016B256D2E5F0098DE60 /* ColorsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsModel.swift; sourceTree = "<group>"; };
 		9C23016D256D2E770098DE60 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		9C23016F256D2E8F0098DE60 /* PickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
+		9C5509F9257513D40041B1AB /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		9CE69BEA256D954C00CDB1AC /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		9CE69BEC256D9A0400CDB1AC /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 		A70BDDBDC4262B327A49CECA /* Pods_ColorPickerClosuresTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColorPickerClosuresTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -158,12 +160,29 @@
 		9C230176256D40DD0098DE60 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				9C5509FC257557560041B1AB /* ColorPicker */,
+				9C5509FB2575574E0041B1AB /* Settings */,
 				9C23014B256D2E3A0098DE60 /* SceneDelegate.swift */,
-				9C23016D256D2E770098DE60 /* SettingsViewController.swift */,
-				9C23016F256D2E8F0098DE60 /* PickerViewController.swift */,
 				9C230175256D40D00098DE60 /* Service */,
 			);
 			path = Scenes;
+			sourceTree = "<group>";
+		};
+		9C5509FB2575574E0041B1AB /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				9C5509F9257513D40041B1AB /* SettingsViewModel.swift */,
+				9C23016D256D2E770098DE60 /* SettingsViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		9C5509FC257557560041B1AB /* ColorPicker */ = {
+			isa = PBXGroup;
+			children = (
+				9C23016F256D2E8F0098DE60 /* PickerViewController.swift */,
+			);
+			path = ColorPicker;
 			sourceTree = "<group>";
 		};
 		9CE69BE9256D953200CDB1AC /* Views */ = {
@@ -369,6 +388,7 @@
 				9C230170256D2E8F0098DE60 /* PickerViewController.swift in Sources */,
 				9CE69BED256D9A0400CDB1AC /* UIColor+Hex.swift in Sources */,
 				9CE69BEB256D954C00CDB1AC /* Cell.swift in Sources */,
+				9C5509FA257513D40041B1AB /* SettingsViewModel.swift in Sources */,
 				9C23016E256D2E770098DE60 /* SettingsViewController.swift in Sources */,
 				9C1F935C256E821B009EDD7F /* Service.swift in Sources */,
 				9C23014A256D2E3A0098DE60 /* AppDelegate.swift in Sources */,

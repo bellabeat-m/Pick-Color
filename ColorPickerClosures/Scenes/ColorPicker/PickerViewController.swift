@@ -11,13 +11,14 @@ import SnapKit
 
 class PickerViewController: UIViewController {
     
-    // MARK: - Properties
+    // MARK: - Properties exposed for view controller
     private let colors: [UIColor]
     private var selectionColorHandler: ((_ color: UIColor) -> Void)?
 
     // MARK: - Outlets
-    var tableView = UITableView()
+    private var tableView = UITableView(frame: .zero, style: .plain)
     
+    // MARK: - Initializers
     init(colors: [UIColor]) {
         self.colors = colors
         super.init(nibName: nil, bundle: nil)
@@ -50,7 +51,7 @@ extension PickerViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell       = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? Cell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? Cell else { return UITableViewCell() }
         cell.backgroundColor = colors[indexPath.row]
         return cell
     }

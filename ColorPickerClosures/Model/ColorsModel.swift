@@ -9,6 +9,9 @@
 import Foundation
 
 // MARK: - ColorsModel
+/// Response for list of items.
+/// For example for people when T = ColorsModel
+/// Example url: ""
 struct ColorsModel: Decodable {
     struct Colors: Decodable {
         let backgroundColors, textColors: [String]
