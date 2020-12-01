@@ -32,41 +32,41 @@ class PickerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(tableView)
-        tableView.rowHeight  = UITableView.automaticDimension
-        tableView.dataSource = self
-        tableView.delegate   = self
-        tableView.register(Cell.self, forCellReuseIdentifier: Cell.identifier)
-        setConstraints()
+        self.tableView.rowHeight  = UITableView.automaticDimension
+        self.tableView.dataSource = self
+        self.tableView.delegate   = self
+        self.tableView.register(Cell.self, forCellReuseIdentifier: Cell.identifier)
+        self.setConstraints()
     }
     
     func registerColorHandler(completion: @escaping (_ color: UIColor) -> ()) {
-        selectionColorHandler = completion
+        self.selectionColorHandler = completion
     }
 }
-    // MARK: - UITableViewDataSource & UITableViewDelegate
+
+// MARK: - UITableViewDataSource & UITableViewDelegate
 extension PickerViewController: UITableViewDataSource, UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return colors.count 
+        return self.colors.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? Cell else { return UITableViewCell() }
-        cell.backgroundColor = colors[indexPath.row]
+        cell.backgroundColor = self.colors[indexPath.row]
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let colorRow = self.colors[indexPath.row]
         self.dismiss(animated: true, completion: nil)
-        selectionColorHandler?(colorRow)
+        self.selectionColorHandler?(colorRow)
     }
 }
 
+// MARK: - Constraints
 extension PickerViewController {
-    
     func setConstraints()  {
-        tableView.snp.makeConstraints { (make) in
+        self.tableView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
     }

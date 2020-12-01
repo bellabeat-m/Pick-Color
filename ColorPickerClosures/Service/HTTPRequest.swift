@@ -1,5 +1,5 @@
 //
-//  Service.swift
+//  HTTPRequest.swift
 //  ColorPickerClosures
 //
 //  Created by Marina Huber on 11/24/20.
@@ -8,17 +8,17 @@
 
 import UIKit
 
-struct Service {
+struct HTTPRequest {
     // MARK: - Properties
      static let apiUrl = "https://d2t41j3b4bctaz.cloudfront.net/interview.json"
     
     // MARK: - Initializer
-     public init() {}
+     init() {}
     
     // MARK: - Requests
     func request<T: Decodable>(model: T.Type, completion: @escaping (Result<T?, ServiceError>) -> ()) {
         
-        guard let urlFinal = URL(string: Service.apiUrl) else { return }
+        guard let urlFinal = URL(string: HTTPRequest.apiUrl) else { return }
         
         let task = URLSession.shared.dataTask(with: urlFinal) { data, response, error in
             
@@ -49,5 +49,4 @@ struct Service {
         }
         task.resume()
     }
-    
 }

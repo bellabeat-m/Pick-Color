@@ -10,40 +10,36 @@ import UIKit
 import SnapKit
 
 class SettingsViewController: UIViewController {
-    
     // MARK: - Dependencies
-    private var apiService = Service()
-    private lazy var settingsViewModel = SettingsViewModel(apiService: apiService)
+    private lazy var settingsViewModel = SettingsViewModel()
     
     // MARK: - Outlets
     private lazy var titleLabel: UILabel = {
-        let lbl = UILabel(frame: .zero)
-        lbl.textAlignment = .center
-        lbl.numberOfLines = 0
-        lbl.lineBreakMode = .byWordWrapping
-        lbl.font = UIFont.systemFont(ofSize: 22, weight: .medium)
-        lbl.textColor = .systemGray4
-        lbl.text = "Title default"
+        let label = UILabel(frame: .zero)
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        label.font = UIFont.systemFont(ofSize: 22, weight: .medium)
+        label.textColor = .systemGray4
+        label.text = "Title default"
         
-        view.addSubview(lbl)
-        
-        return lbl
+        return label
     }()
     
     private lazy var oneButton: UIButton = {
-        let btn = UIButton.colorsSelectionButton()
-        btn.setTitle("Promijeni boju teksta", for: .normal)
-        btn.addTarget(self, action: #selector(changeTitleColor), for: .touchUpInside)
+        let button = UIButton.colorsSelectionButton()
+        button.setTitle("Promijeni boju teksta", for: .normal)
+        button.addTarget(self, action: #selector(changeTitleColor), for: .touchUpInside)
         
-        return btn
+        return button
     }()
     
     private lazy var secondButton: UIButton = {
-        let btn = UIButton.colorsSelectionButton()
-        btn.setTitle("Promijeni boju pozadine", for: .normal)
-        btn.addTarget(self, action: #selector(changeBackgroundColor), for: .touchUpInside)
+        let button = UIButton.colorsSelectionButton()
+        button.setTitle("Promijeni boju pozadine", for: .normal)
+        button.addTarget(self, action: #selector(changeBackgroundColor), for: .touchUpInside)
         
-        return btn
+        return button
     }()
     
     private lazy var buttonsStack: UIStackView = {
@@ -53,24 +49,24 @@ class SettingsViewController: UIViewController {
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         
-        view.addSubview(stackView)
-        
         return stackView
     }()
     
     // MARK: - UIViewController LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.addSubview(titleLabel)
+        self.view.addSubview(buttonsStack)
         self.view.backgroundColor = .systemGray4
-        settingsViewModel.fetchColors { [weak self] in
+        self.settingsViewModel.fetchColors { [weak self] in
             DispatchQueue.main.async {
                 self?.randomiseUI()
             }
         }
-        setupConstraints()
+        self.setupConstraints()
     }
-    // MARK: - Actions (from view controller)
     
+    // MARK: - Actions (from view controller)
     private func randomiseUI() {
         self.view.backgroundColor = settingsViewModel.backgroundColors.randomElement()
         self.titleLabel.textColor = settingsViewModel.textColors.randomElement()
@@ -78,7 +74,6 @@ class SettingsViewController: UIViewController {
         self.secondButton.titleLabel?.textColor = settingsViewModel.textColors.randomElement()
     }
 }
-
 
 extension SettingsViewController {
     @objc func changeBackgroundColor() {
@@ -89,8 +84,6 @@ extension SettingsViewController {
         }
         backgroundController.modalPresentationStyle = .fullScreen
         self.navigationController?.present(backgroundController , animated: true)
-        
-        
     }
     
     @objc func changeTitleColor() {
@@ -103,26 +96,27 @@ extension SettingsViewController {
         }
         textController.modalPresentationStyle = .fullScreen
         self.navigationController?.present(textController , animated: true)
-        
     }
 }
-    // MARK: - Constraints
+
+// MARK: - Constraints
 extension SettingsViewController {
     private func setupConstraints() {
-        titleLabel.snp.makeConstraints { make in
+        self.titleLabel.snp.makeConstraints { make in
             make.width.equalToSuperview().multipliedBy(0.65)
             make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.centerX.equalToSuperview()
         }
         
-        buttonsStack.snp.makeConstraints { make in
+        self.buttonsStack.snp.makeConstraints { make in
             make.left.right.equalTo(view.safeAreaLayoutGuide).inset(10)
             make.top.equalTo(titleLabel.snp.bottom).offset(80)
             make.centerY.equalTo(view.safeAreaLayoutGuide.snp.centerY).offset(10)
         }
     }
 }
-    // MARK: - Custom UIButton
+
+// MARK: - Custom UIButton
 fileprivate extension UIButton {
     static func colorsSelectionButton() -> UIButton {
         let btn = UIButton(type: .custom)
@@ -131,6 +125,7 @@ fileprivate extension UIButton {
         btn.setTitleColor(.black, for: .normal)
         btn.titleLabel?.font = .systemFont(ofSize: 21, weight: .semibold)
         btn.showsTouchWhenHighlighted = true
+        
         return btn
     }
 }
